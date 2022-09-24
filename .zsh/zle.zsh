@@ -4,3 +4,4 @@ zle -N select-git-switch
 zle -N zle-rooting
 zle -N zle-cdd
 zle -N peco-src
+zle -N spoltlight

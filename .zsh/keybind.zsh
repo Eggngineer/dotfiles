@@ -10,3 +10,5 @@ bindkey "^j" zle-rooting
 bindkey "^f" zle-cdd
 # ^] list&jamp the directories under control by "gh/ghq"
 bindkey '^]' peco-src
+# ^k fuzzy-search apps and run it like Spotlight-Search (only applications: /Applications/*)
+bindkey '^k' spoltlight

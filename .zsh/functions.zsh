@@ -1,3 +1,4 @@
+autoload -Uz is-at-least
 if is-at-least 4.3.11
 then
   autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
@@ -58,13 +59,13 @@ function selection_rooting(){
     display_rooting $i
     while :; do
         read -ks key
-        if [[ $key == 'f' ]]; then
+        if [[ $key == 'j' ]]; then
             i=$(($i-1))
-        elif [[ $key == 'j' ]]; then
+        elif [[ $key == 'l' ]]; then
             i=$(($i+1))
-        else
+        elif [[ $key == ' ' ]]; then
             break
-        fi 
+        fi
         if [[ $i -lt 1 ]]; then
             i=$((1))
         fi
@@ -177,27 +178,10 @@ function fzf-open() {
 
 # fzf-open-dir
 function fzf-open-dir() {
-    target_dir=`expand-dirs | fzf --height 40% --preview 'head -100 {}' --border`
+    target_dir=`expand-dirs | fzf --height 40% --preview 'tree {} --noreport -C  -L 1'`
     if [ -n "$target_dir" ]; then
         open $target_dir
     fi
-}
-
-# fzf-change-dir
-function fzf-change-dir() {
-    target_dir=`expand-dirs | fzf --height 40% --preview 'head -100 {}' --border`
-    if [ -n "$target_dir" ]; then
-        cd $target_dir
-    fi
-}
-
-function expand-dirs() {
-  myDIRs=$(echo $(ls -d */) | sed 's/\///g')
-  ary=(`echo $myDIRs`)
-  for i in `seq 1 ${#ary[@]}`
-  do
-    echo ${ary[$i]}
-  done
 }
 
 function tmux_main(){
@@ -241,4 +225,58 @@ function my-compact-chpwd-recent-dirs () {
     history_size=$#reply
     reply=(${^reply}(N))
     (( $history_size == $#reply )) || chpwd_recent_filehandler $reply
+}
+
+function localhost(){
+    url='http://localhost:'
+    echo -n 'Port Number:'
+    read port
+    url=$url$port
+    open $url
+}
+
+function gh-clone() {
+    echo -n 'User Name?:'
+    read USER_NAME
+    if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+        echo \
+'use: "command <option>"
+options:
+    -h, --help : shows help'
+    else
+        REPOSITORY=$(gh repo list $USER_NAME --json nameWithOwner -q '.[].nameWithOwner' | fzf-tmux -p 80%)
+        if [ $REPOSITORY ]; then
+            gh repo clone $REPOSITORY
+        fi
+    fi
+}
+
+function gh-brows-repos() {
+    echo -n 'User Name?:'
+    read USER_NAME
+    if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+        echo \
+'use: "command <option>"
+options:
+    -h, --help : shows help'
+    else
+        REPOSITORY=$(gh repo list $USER_NAME --json nameWithOwner -q '.[].nameWithOwner' | fzf-tmux -p 80%)
+        if [ $REPOSITORY ]; then
+            gh repo view --web $REPOSITORY
+        fi
+    fi
+}
+
+function spoltlight() {
+    APP=$(ls /Applications | sed "s/\.app//g" | fzf-tmux -p 40%)
+    if [ $APP ]; then
+        APP_PATH="/Applications/$APP.app"
+        open $APP_PATH
+    fi
+    zle accept-line
+}
+
+function atcoder () {
+    cd /Users/eggngineer/FILEs/DEVs/Git/github.com/Eggngineer/atcoder
+    open "https://atcoder.jp/?lang=ja"
 }

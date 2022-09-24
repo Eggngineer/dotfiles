@@ -3,13 +3,11 @@ alias mcd='mkcdir'
 alias cdd='fzf-cdr'
 alias fpn='fzf-open'
 alias fpd='fzf-open-dir'
-alias fd='fzf-change-dir'
+alias fd='fd --exact-depth 1'
 
 # list command
-alias l='ls -vlG'
+alias l='ls -vlG1'
 alias la='ls -vlaG'
-alias ll='ls -vlG'
-alias ls='ls -vG'
 
 # some aliases
 alias grep='grep --color=auto'
@@ -20,9 +18,10 @@ alias v='code'
 alias v.='code ./'
 alias o='open'
 alias o.='open ./' 
-alias psp='powsleep'
+alias psp='pmset sleepnow'
 alias tt='tree -L 2'
 alias pwd='pwd -P'
+alias cls='cd /Users/eggngineer/FILEs/LABs/M1/Class/LastTerm'
 
 # author-unique
 alias egg='cd ~/files/devs/Git/github.com/Eggngineer'
@@ -40,3 +39,9 @@ alias main='tmux_main'
 alias ide='tmux_ide'
 alias ss='tmux_select_session'
 alias ks='tmux_selectively_kill_session'
+
+# github utilities
+alias clone="gh-clone"
+alias cln="gh-clone"
+alias viewrepos="gh-brows-repos"
+alias wr="gh-brows-repos"
