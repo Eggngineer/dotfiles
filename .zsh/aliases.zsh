@@ -6,8 +6,33 @@ alias fpd='fzf::open-dir'
 alias fd='fd --exact-depth 1'
 
 # list command
-alias l='ls -vlG1'
-alias la='ls -vlaG'
+
+if hash "lsd" >/dev/null 2>&1; then
+    alias l="lsd -l"
+    alias la="lsd -la"
+    alias ls="lsd -l"
+    alias tree="lsd --tree"
+else
+    alias l='ls -vlG1'
+    alias la='ls -vlaG'
+fi
+
+# tmux utilities
+if hash "tmux" >/dev/null 2>&1; then
+    alias fzf='fzf-tmux -p 60%'
+    alias mkt='make_tmux_session'
+    alias tls='tmux ls'
+    alias sd='tmux detach'
+    alias main='tmux_main'
+    alias ide='tmux_ide'
+    alias ss='tmux_select_session'
+    alias ks='tmux_selectively_kill_session'
+fi 
+
+# github utilities
+if hash "gh" >/dev/null 2>&1; then
+    alias wr="gh-brows-repos"
+fi
 
 # some aliases
 alias grep='grep --color=auto'
@@ -30,19 +55,3 @@ alias ssp="sshsp"
 # comfortable file making
 alias tp='touch-python'
 alias tc='touch-cpp'
-
-# tmux utilities
-alias fzf='fzf-tmux'
-alias mkt='make_tmux_session'
-alias tls='tmux ls'
-alias sd='tmux detach'
-alias main='tmux_main'
-alias ide='tmux_ide'
-alias ss='tmux_select_session'
-alias ks='tmux_selectively_kill_session'
-
-# github utilities
-alias clone="gh-clone"
-alias cln="gh-clone"
-alias viewrepos="gh-brows-repos"
-alias wr="gh-brows-repos"
