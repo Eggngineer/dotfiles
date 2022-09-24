@@ -77,7 +77,6 @@ function selection_rooting(){
     corr $i
 }
 
-alias rr='rooting'
 function rooting () {
     selection_rooting |
         while read line; do
@@ -125,7 +124,6 @@ function peco-src () {
   zle clear-screen
 }
 
-alias ssp="sshsp"
 function sshsp() {
   local host=$(grep -E "^Host " ~/.ssh/config | sed -e 's/Host[ ]*//g' | fzf-tmux -p 40% --height 40%  --border)
   if [ -n "$host" ]; then
@@ -134,7 +132,7 @@ function sshsp() {
 }
 
 
-function select-git-switch() {
+function fzf::select-git-switch() {
   target_br=$(
     git branch -a |
       fzf-tmux -p 80% --layout=reverse --info=hidden --prompt="CHECKOUT BRANCH > " --preview="echo {} | tr -d ' *' | xargs git lg --color=always" |
@@ -147,38 +145,33 @@ function select-git-switch() {
   fi
 }
 
-
 # mkcdir
 function mkcdir() {
     mkdir $1
     cd $1
 }
 
-# fzf-cdr
-function fzf-cdr() {
+# fzf::cdr
+function fzf::cdr() {
     target_dir=`cdr -l | sed 's/^[^ ][^ ]*  *//'  | sed "s@~@$HOME@" |   fzf-tmux -p 80% --preview 'tree {} --noreport -C  -L 1'`
     target_dir=`echo ${target_dir/\~/$HOME}`
     if [ -n "$target_dir" ]; then
         cd $target_dir
+        zle accept-line
     fi
 }
 
-function zle-cdd () {
-    fzf-cdr
-    zle accept-line
-}
-
 # fzf-open
-function fzf-open() {
-    target_file=`fzf --height 40% --preview 'head -100 {}' --border`
+function fzf::open() {
+    target_file=`fzf -p 60% --preview 'head -100 {}' --border`
     if [ -n "$target_file" ]; then
         open $target_file
     fi
 }
 
 # fzf-open-dir
-function fzf-open-dir() {
-    target_dir=`expand-dirs | fzf --height 40% --preview 'tree {} --noreport -C  -L 1'`
+function fzf::open-dir() {
+    target_dir=`fd | fzf-tmux -p 60% --height 40% --preview 'tree {} --noreport -C  -L 1'`
     if [ -n "$target_dir" ]; then
         open $target_dir
     fi
@@ -206,14 +199,17 @@ function make_tmux_session(){
     read sname 
     tmux new-session -s $sname
 }
+
 function tmux_select_session(){
-    sname=`tmux ls | fzf --height 20% --reverse | sed 's/:.*//g'`
+    sname=`tmux ls | fzf-tmux -p 40% --reverse | sed 's/:.*//g'`
     tmux a -t $sname
 }
+
 function tmux_selectively_kill_session(){
-    sname=`tmux ls | fzf --height 20% --reverse | sed 's/:.*//g'`
+    sname=`tmux ls | fzf -p 40% --reverse | sed 's/:.*//g'`
     tmux kill-session -t $sname
 }
+
 #cite: https://blog.n-z.jp/blog/2014-07-25-compact-chpwd-recent-dirs.html 
 function my-compact-chpwd-recent-dirs () {
     emulate -L zsh

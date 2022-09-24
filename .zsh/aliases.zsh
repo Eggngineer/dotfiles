@@ -1,8 +1,8 @@
 # original shell-function
 alias mcd='mkcdir'
-alias cdd='fzf-cdr'
-alias fpn='fzf-open'
-alias fpd='fzf-open-dir'
+alias cdd='fzf::cdr'
+alias fpn='fzf::open'
+alias fpd='fzf::open-dir'
 alias fd='fd --exact-depth 1'
 
 # list command
@@ -25,6 +25,7 @@ alias cls='cd /Users/eggngineer/FILEs/LABs/M1/Class/LastTerm'
 
 # author-unique
 alias egg='cd ~/files/devs/Git/github.com/Eggngineer'
+alias ssp="sshsp"
 
 # comfortable file making
 alias tp='touch-python'
