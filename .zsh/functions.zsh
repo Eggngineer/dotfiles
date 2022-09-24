@@ -202,12 +202,16 @@ function make_tmux_session(){
 
 function tmux_select_session(){
     sname=`tmux ls | fzf-tmux -p 40% --reverse | sed 's/:.*//g'`
-    tmux a -t $sname
+    if [[ $sname ]]; then
+        tmux a -t $sname
+    fi
 }
 
 function tmux_selectively_kill_session(){
     sname=`tmux ls | fzf -p 40% --reverse | sed 's/:.*//g'`
-    tmux kill-session -t $sname
+    if [[ $sname ]]; then
+        tmux kill-session -t $sname
+    fi
 }
 
 #cite: https://blog.n-z.jp/blog/2014-07-25-compact-chpwd-recent-dirs.html 
