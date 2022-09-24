@@ -8,17 +8,18 @@
   * \[copy-mode\]vim-like keybindings
 * .zshrc
   * source .zsh/*
-  * source .zsh.d/*
 * .zsh
   <pre>
+  .zsh
   ├── aliases.zsh
   ├── autoload.zsh
   ├── completions.zsh
   ├── functions.zsh
+  ├── history.zsh
   ├── keybind.zsh
   ├── path_export.zsh
   ├── setopt.zsh
   ├── zle.zsh
-  └── zsh-autosuggestions
+  ├── zplug_plugin.zsh
+  └── zsh-autosuggestions/
   </pre>
-  [NOTICE] These likely depend on my own environment. There's no guarantee that these config-files are valid on your environment.

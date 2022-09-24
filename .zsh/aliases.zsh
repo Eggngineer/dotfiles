@@ -15,7 +15,6 @@ if hash "lsd" >/dev/null 2>&1; then
     alias l="lsd -l"
     alias la="lsd -la"
     alias ls="lsd -l"
-    alias tree="lsd --tree"
 else
     alias l='ls -vlG1'
     alias la='ls -vlaG'
