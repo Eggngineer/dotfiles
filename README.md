@@ -20,6 +20,5 @@
   ├── path_export.zsh
   ├── setopt.zsh
   ├── zle.zsh
-  ├── zplug_plugin.zsh
-  └── zsh-autosuggestions/
+  └── zplug_plugin.zsh
   </pre>
