@@ -267,7 +267,7 @@ options:
     fi
 }
 
-function spoltlight() {
+function spotlight() {
     APP=$(ls /Applications | sed "s/\.app//g" | fzf-tmux -p 40%)
     if [ $APP ]; then
         APP_PATH="/Applications/$APP.app"
