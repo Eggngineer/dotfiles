@@ -1,3 +1,4 @@
+bindkey -d
 # ^g show git branch
 bindkey "^g" fzf::select-git-switch 
 # ^p complete backward candidates
@@ -11,4 +12,4 @@ bindkey "^f" fzf::cdr
 # ^] list&jamp the directories under control by "gh/ghq"
 bindkey '^]' peco-src
 # ^k fuzzy-search apps and run it like Spotlight-Search (only applications: /Applications/*)
-bindkey '^k' spotlight
+bindkey '^u' spotlight 
