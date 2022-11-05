@@ -156,7 +156,7 @@ function fzf::cdr() {
     target_dir=`cdr -l | sed 's/^[^ ][^ ]*  *//'  | sed "s@~@$HOME@" |   fzf-tmux -p 80% --preview 'tree {} --noreport -C  -L 1'`
     target_dir=`echo ${target_dir/\~/$HOME}`
     if [ -n "$target_dir" ]; then
-        cd $target_dir
+        cd "$target_dir"
         zle accept-line
     fi
 }

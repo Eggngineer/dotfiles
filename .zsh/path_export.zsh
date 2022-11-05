@@ -1,4 +1,3 @@
-export ZPLUG_HOME=$(brew --prefix)/opt/zplug
 export GOPATH=$HOME/Go
 export PATH=$PATH:$GOPATH/bin
 export PATH="$PATH:/opt/homebrew/bin"
@@ -12,3 +11,5 @@ export FZF_TMUX_OPTS="-p 80%"
 export PATH="$PATH:/opt/R/arm64/bin"
 
 export PATH="$PATH:/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources"
+
+export PATH="/usr/local/bin:$PATH"
