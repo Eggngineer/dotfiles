@@ -13,3 +13,5 @@ bindkey "^f" fzf::cdr
 bindkey '^]' peco-src
 # ^k fuzzy-search apps and run it like Spotlight-Search (only applications: /Applications/*)
 bindkey '^k' fzf::spotlight
+# ignore real Spotlight search in systemPreference and remap CMD+space -> ^[k in terminal apps.
+bindkey '^[k' fzf::spotlight
