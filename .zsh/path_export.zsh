@@ -1,4 +1,5 @@
 export GOPATH=$HOME/Go
+export GOBIN=/Users/eggngineer/Go/bin/
 export PATH=$PATH:$GOPATH/bin
 export PATH="$PATH:/opt/homebrew/bin"
 

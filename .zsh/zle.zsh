@@ -4,4 +4,4 @@ zle -N fzf::select-git-switch
 zle -N zle-rooting
 zle -N fzf::cdr
 zle -N peco-src
-zle -N spotlight
+zle -N fzf::spotlight
