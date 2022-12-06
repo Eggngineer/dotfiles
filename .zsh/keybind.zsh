@@ -12,5 +12,4 @@ bindkey "^f" fzf::cdr
 # ^] list&jamp the directories under control by "gh/ghq"
 bindkey '^]' peco-src
 # ^k fuzzy-search apps and run it like Spotlight-Search (only applications: /Applications/*)
-bindkey '^u' fzf::spotlight
-bindkey '^ ' fzf::spotlight
+bindkey '^k' fzf::spotlight
