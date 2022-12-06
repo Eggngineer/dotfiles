@@ -5,3 +5,4 @@ zle -N zle-rooting
 zle -N fzf::cdr
 zle -N peco-src
 zle -N fzf::spotlight
+zle -N sshsp

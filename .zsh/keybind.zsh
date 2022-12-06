@@ -15,3 +15,5 @@ bindkey '^]' peco-src
 bindkey '^k' fzf::spotlight
 # ignore real Spotlight search in systemPreference and remap CMD+space -> ^[k in terminal apps.
 bindkey '^[k' fzf::spotlight
+
+bindkey '^[s' sshsp
