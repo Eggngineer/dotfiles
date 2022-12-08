@@ -3,6 +3,7 @@ if hash "fzf" >/dev/null 2>&1; then
     alias cdd='fzf::cdr'
     alias fpn='fzf::open'
     alias fpd='fzf::open-dir'
+    alias his='history -E -i 1 | fzf'
 fi
 
 # fd option
@@ -38,17 +39,24 @@ if hash "gh" >/dev/null 2>&1; then
     alias wr="gh-brows-repos"
 fi
 
+# visual studio code utilities
+if hash "code" >/dev/null 2>&1; then
+    alias v='code'
+    alias v.='code ./'
+fi
+
+# Macintosh utils 
+if [ $(uname -s) = "Darwin" ]; then
+    alias psp='pmset sleepnow'
+fi
 # some aliases
 alias mcd='mkcdir'
 alias grep='grep --color=auto'
 alias ..='cd ../'
 alias ...='cd ../../'
-alias his='history -E -i 1 | fzf'
-alias v='code'
-alias v.='code ./'
 alias o='open'
 alias o.='open ./'
-alias psp='pmset sleepnow'
+alias to='tree -L 1'
 alias tt='tree -L 2'
 alias pwd='pwd -P'
 
@@ -56,7 +64,5 @@ alias pwd='pwd -P'
 alias egg='cd ~/files/devs/Git/github.com/Eggngineer'
 alias cls='cd /Users/eggngineer/FILEs/LABs/M1/Class/LastTerm'
 alias ssp="sshsp"
-
-# comfortable file making
 alias tp='touch-python'
 alias tc='touch-cpp'

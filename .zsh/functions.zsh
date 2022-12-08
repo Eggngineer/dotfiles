@@ -1,12 +1,12 @@
 autoload -Uz is-at-least
 if is-at-least 4.3.11
 then
-    autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-    add-zsh-hook chpwd chpwd_recent_dirs
-    zstyle ':chpwd:*'            recent-dirs-max 500
-    zstyle ':chpwd:*'            recent-dirs-default yes
-    zstyle ':completion:*' recent-dirs-insert both
-    zstyle ':chpwd:*' recent-dirs-pushd true
+        autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+        add-zsh-hook chpwd chpwd_recent_dirs
+        zstyle ':chpwd:*'            recent-dirs-max 500
+        zstyle ':chpwd:*'            recent-dirs-default yes
+        zstyle ':completion:*' recent-dirs-insert both
+        zstyle ':chpwd:*' recent-dirs-pushd true
 fi
 
 function corr(){
@@ -14,7 +14,7 @@ function corr(){
         tmp=($(echo $arr | tr "," "\n"))
         str=""
         i=$1
-        for dir in ${tmp[@]}; 
+        for dir in ${tmp[@]};
                 do
                         str+="/"
                         str+=$dir
@@ -271,19 +271,19 @@ options:
 function fzf::spotlight() {
         APP=$(ls /Applications | sed "s/\.app//g" | fzf-tmux -p 40%)
         if [ $APP ]; then
-            opt1=""
-            opt1_target=""
-            if [ "$APP" = "Utilities" ];then
-                APP_PATH="/Applications/$APP"
-            elif [ "$APP" = "SystemPreference" ];then
-                # APP_PATH="-b com.apple.systempreferences /System/Library/PreferencePanes/Security.prefPane"
-                opt1="-b"
-                opt1_target=com.apple.systempreferences
-                APP_PATH="/System/Library/PreferencePanes/Security.prefPane"
-            else
-                APP_PATH="/Applications/$APP.app"
-            fi
-            open $opt1 $opt1_target $APP_PATH
+                opt1=""
+                opt1_target=""
+                if [ "$APP" = "Utilities" ];then
+                        APP_PATH="/Applications/$APP"
+                elif [ "$APP" = "SystemPreference" ];then
+                        # APP_PATH="-b com.apple.systempreferences /System/Library/PreferencePanes/Security.prefPane"
+                        opt1="-b"
+                        opt1_target=com.apple.systempreferences
+                        APP_PATH="/System/Library/PreferencePanes/Security.prefPane"
+                else
+                        APP_PATH="/Applications/$APP.app"
+                fi
+                open $opt1 $opt1_target $APP_PATH
         fi
         zle accept-line
 }
@@ -291,4 +291,9 @@ function fzf::spotlight() {
 function atcoder () {
         cd /Users/eggngineer/FILEs/DEVs/Git/github.com/Eggngineer/atcoder
         open "https://atcoder.jp/?lang=ja"
+}
+
+function open_here () {
+        open ./
+        zle accept-line
 }
