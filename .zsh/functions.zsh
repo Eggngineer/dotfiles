@@ -297,3 +297,8 @@ function open_here () {
         open ./
         zle accept-line
 }
+
+function open_here_by_VSCode() {
+        code ./
+        zle accept-line
+}

@@ -7,3 +7,4 @@ zle -N peco-src
 zle -N fzf::spotlight
 zle -N sshsp
 zle -N open_here
+zle -N open_here_by_VSCode

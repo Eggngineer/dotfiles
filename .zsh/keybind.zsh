@@ -19,3 +19,5 @@ bindkey '^[k' fzf::spotlight
 bindkey '^[s' sshsp
 # cmd+o --> openhere: open ./
 bindkey '^[o' open_here
+# ctr+v --> openhere: code ./
+bindkey '^v' open_here_by_VSCode
