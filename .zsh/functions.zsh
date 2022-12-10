@@ -9,6 +9,7 @@ then
         zstyle ':chpwd:*' recent-dirs-pushd true
 fi
 
+### original shell functrions
 function corr(){
         arr=$(pwd | sed 's/\///' | sed 's/\//,/g')
         tmp=($(echo $arr | tr "," "\n"))
@@ -25,18 +26,12 @@ function corr(){
         echo $str
 }
 
-function err1(){
-        echo "select direcory is out of bound."
-        exit
-}
-
 function display_rooting(){
         arr=$(pwd | sed 's/\///' | sed 's/\//,/g')
         tmp=($(echo $arr | tr "," "\n"))
         max=$((${#tmp[@]}))
         str=""
         i=$(($1))
-        # echo $max
         if [ $i -le $max ]; then 
                 for dir in ${tmp[@]}; 
                         do
@@ -86,11 +81,20 @@ function rooting () {
                         lenLine=${#line}
                 done
         cd $dir
+        zle accept-line
 }
 
-function zle-rooting () {
-        rooting
-        zle accept-line
+#cite: https://blog.n-z.jp/blog/2014-07-25-compact-chpwd-recent-dirs.html
+function my-compact-chpwd-recent-dirs () {
+        emulate -L zsh
+        setopt extendedglob
+        local -aU reply
+        integer history_size
+        autoload -Uz chpwd_recent_filehandler
+        chpwd_recent_filehandler
+        history_size=$#reply
+        reply=(${^reply}(N))
+        (( $history_size == $#reply )) || chpwd_recent_filehandler $reply
 }
 
 function touch-python () {
@@ -115,118 +119,6 @@ function touch-cpp () {
 
 }
 
-function peco-src () {
-    local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
-    if [ -n "$selected_dir" ]; then
-        BUFFER="cd ${selected_dir}"
-        zle accept-line
-    fi
-    zle clear-screen
-}
-
-function sshsp() {
-    local host=$(grep -E "^Host " ~/.ssh/config | sed -e 's/Host[ ]*//g' | fzf-tmux -p 40% --height 40%    --border)
-    if [ -n "$host" ]; then
-        BUFFER="ssh $host"
-        zle accept-line
-    fi
-}
-
-
-function fzf::select-git-switch() {
-    target_br=$(
-        git branch -a |
-            fzf-tmux -p 80% --layout=reverse --info=hidden --prompt="CHECKOUT BRANCH > " --preview="echo {} | tr -d ' *' | xargs git lg --color=always" |
-            head -n 1 |
-            perl -pe "s/\s//g; s/\*//g; s/remotes\/origin\///g"
-    )
-    if [ -n "$target_br" ]; then
-        BUFFER="git switch $target_br"
-        zle accept-line
-    fi
-}
-
-# mkcdir
-function mkcdir() {
-        mkdir $1
-        cd $1
-}
-
-# fzf::cdr
-function fzf::cdr() {
-        target_dir=`cdr -l | sed 's/^[^ ][^ ]*    *//'    | sed "s@~@$HOME@" |     fzf-tmux -p 80% --preview 'tree {} --noreport -C    -L 1'`
-        target_dir=`echo ${target_dir/\~/$HOME}`
-        if [ -n "$target_dir" ]; then
-                cd "$target_dir"
-                zle accept-line
-        fi
-}
-
-# fzf-open
-function fzf::open() {
-        target_file=`fzf -p 60% --preview 'head -100 {}' --border`
-        if [ -n "$target_file" ]; then
-                open $target_file
-        fi
-}
-
-# fzf-open-dir
-function fzf::open-dir() {
-        target_dir=`fd | fzf-tmux -p 60% --height 40% --preview 'tree {} --noreport -C    -L 1'`
-        if [ -n "$target_dir" ]; then
-                open $target_dir
-        fi
-}
-
-function tmux_main(){
-        tmux split-window -v
-        tmux split-window -h
-        tmux resize-pane -D 15
-        tmux select-pane -t 1
-}
-function tmux_ide(){
-        tmux split-window -v
-        tmux resize-pane -U 10
-        tmux select-pane -t 0
-        tmux split-window -h
-        tmux split-window -h
-        tmux select-pane -t 0
-        tmux resize-pane -L 80
-        tmux clock
-        tmux select-pane -t 3
-}
-function make_tmux_session(){
-        echo -n "Session Name:"
-        read sname 
-        tmux new-session -s $sname
-}
-
-function tmux_select_session(){
-        sname=`tmux ls | fzf-tmux -p 40% --reverse | sed 's/:.*//g'`
-        if [[ $sname ]]; then
-                tmux a -t $sname
-        fi
-}
-
-function tmux_selectively_kill_session(){
-        sname=`tmux ls | fzf -p 40% --reverse | sed 's/:.*//g'`
-        if [[ $sname ]]; then
-                tmux kill-session -t $sname
-        fi
-}
-
-#cite: https://blog.n-z.jp/blog/2014-07-25-compact-chpwd-recent-dirs.html 
-function my-compact-chpwd-recent-dirs () {
-        emulate -L zsh
-        setopt extendedglob
-        local -aU reply
-        integer history_size
-        autoload -Uz chpwd_recent_filehandler
-        chpwd_recent_filehandler
-        history_size=$#reply
-        reply=(${^reply}(N))
-        (( $history_size == $#reply )) || chpwd_recent_filehandler $reply
-}
 
 function localhost(){
         url='http://localhost:'
@@ -236,56 +128,9 @@ function localhost(){
         open $url
 }
 
-function gh-clone() {
-        echo -n 'User Name?:'
-        read USER_NAME
-        if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-                echo \
-'use: "command <option>"
-options:
-        -h, --help : shows help'
-        else
-                REPOSITORY=$(gh repo list $USER_NAME --json nameWithOwner -q '.[].nameWithOwner' | fzf-tmux -p 80%)
-                if [ $REPOSITORY ]; then
-                        gh repo clone $REPOSITORY
-                fi
-        fi
-}
-
-function gh-brows-repos() {
-        echo -n 'User Name?:'
-        read USER_NAME
-        if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-                echo \
-'use: "command <option>"
-options:
-        -h, --help : shows help'
-        else
-                REPOSITORY=$(gh repo list $USER_NAME --json nameWithOwner -q '.[].nameWithOwner' | fzf-tmux -p 80%)
-                if [ $REPOSITORY ]; then
-                        gh repo view --web $REPOSITORY
-                fi
-        fi
-}
-
-function fzf::spotlight() {
-        APP=$(ls /Applications | sed "s/\.app//g" | fzf-tmux -p 40%)
-        if [ $APP ]; then
-                opt1=""
-                opt1_target=""
-                if [ "$APP" = "Utilities" ];then
-                        APP_PATH="/Applications/$APP"
-                elif [ "$APP" = "SystemPreference" ];then
-                        # APP_PATH="-b com.apple.systempreferences /System/Library/PreferencePanes/Security.prefPane"
-                        opt1="-b"
-                        opt1_target=com.apple.systempreferences
-                        APP_PATH="/System/Library/PreferencePanes/Security.prefPane"
-                else
-                        APP_PATH="/Applications/$APP.app"
-                fi
-                open $opt1 $opt1_target $APP_PATH
-        fi
-        zle accept-line
+function mkcdir() {
+        mkdir $1
+        cd $1
 }
 
 function atcoder () {
@@ -302,3 +147,169 @@ function open_here_by_VSCode() {
         code ./
         zle accept-line
 }
+
+### tmux is necessary
+if hash "tmux" > /dev/null 2>&1; then
+        function tmux_main(){
+                tmux split-window -v
+                tmux split-window -h
+                tmux resize-pane -D 15
+                tmux select-pane -t 1
+        }
+
+        function tmux_ide(){
+                tmux split-window -v
+                tmux resize-pane -U 10
+                tmux select-pane -t 0
+                tmux split-window -h
+                tmux split-window -h
+                tmux select-pane -t 0
+                tmux resize-pane -L 80
+                tmux clock
+                tmux select-pane -t 3
+        }
+
+        function make_tmux_session(){
+                echo -n "Session Name:"
+                read sname 
+                tmux new-session -s $sname
+        }
+fi
+
+### junegunn/fzf is necessary
+if hash "fzf" > /dev/null 2>&1; then
+        function sshsp() {
+                local host=$(grep -E "^Host " ~/.ssh/config | sed -e 's/Host[ ]*//g' | fzf --height 40% --border)
+                if [ -n "$host" ]; then
+                        BUFFER="ssh $host"
+                        zle accept-line
+                fi
+        }
+
+        function fzf::select-git-switch() {
+        target_br=$(
+                git branch -a |
+                fzf --layout=reverse --info=hidden --prompt="CHECKOUT BRANCH > " --preview="echo {} | tr -d ' *' | xargs git lg --color=always" |
+                head -n 1 |
+                perl -pe "s/\s//g; s/\*//g; s/remotes\/origin\///g"
+        )
+        if [ -n "$target_br" ]; then
+                BUFFER="git switch $target_br"
+                zle accept-line
+        fi
+        }
+
+        function fzf::select-git-switch() {
+        target_br=$(
+                git branch -a |
+                fzf --layout=reverse --info=hidden --prompt="CHECKOUT BRANCH > " --preview="echo {} | tr -d ' *' | xargs git lg --color=always" |
+                head -n 1 |
+                perl -pe "s/\s//g; s/\*//g; s/remotes\/origin\///g"
+        )
+        if [ -n "$target_br" ]; then
+                BUFFER="git switch $target_br"
+                zle accept-line
+        fi
+        }
+
+        function fzf::cdr() {
+                target_dir=`cdr -l | sed 's/^[^ ][^ ]*    *//'    | sed "s@~@$HOME@" |     fzf --preview 'tree {} --noreport -C    -L 1'`
+                target_dir=`echo ${target_dir/\~/$HOME}`
+                if [ -n "$target_dir" ]; then
+                        cd "$target_dir"
+                        zle accept-line
+                fi
+        }
+
+        function fzf::open() {
+                target_file=`fzf -p 60% --preview 'head -100 {}' --border`
+                if [ -n "$target_file" ]; then
+                        open $target_file
+                fi
+        }
+
+        function fzf::open-dir() {
+                target_dir=`fd | fzf --height 40% --preview 'tree {} --noreport -C    -L 1'`
+                if [ -n "$target_dir" ]; then
+                        open $target_dir
+                fi
+        }
+
+        function gh-clone() {
+                echo -n 'User Name?:'
+                read USER_NAME
+                if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+                        echo \
+        'use: "command <option>"
+        options:
+                -h, --help : shows help'
+                else
+                        REPOSITORY=$(gh repo list $USER_NAME --json nameWithOwner -q '.[].nameWithOwner' | fzf)
+                        if [ $REPOSITORY ]; then
+                                gh repo clone $REPOSITORY
+                        fi
+                fi
+        }
+
+        function gh-brows-repos() {
+                echo -n 'User Name?:'
+                read USER_NAME
+                if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+                        echo \
+        'use: "command <option>"
+        options:
+                -h, --help : shows help'
+                else
+                        REPOSITORY=$(gh repo list $USER_NAME --json nameWithOwner -q '.[].nameWithOwner' | fzf)
+                        if [ $REPOSITORY ]; then
+                                gh repo view --web $REPOSITORY
+                        fi
+                fi
+        }
+
+        function fzf::spotlight() {
+                APP=$(ls /Applications | sed "s/\.app//g" | fzf -p 40%)
+                if [ $APP ]; then
+                        opt1=""
+                        opt1_target=""
+                        if [ "$APP" = "Utilities" ];then
+                                APP_PATH="/Applications/$APP"
+                        elif [ "$APP" = "SystemPreference" ];then
+                                # APP_PATH="-b com.apple.systempreferences /System/Library/PreferencePanes/Security.prefPane"
+                                opt1="-b"
+                                opt1_target=com.apple.systempreferences
+                                APP_PATH="/System/Library/PreferencePanes/Security.prefPane"
+                        else
+                                APP_PATH="/Applications/$APP.app"
+                        fi
+                        open $opt1 $opt1_target $APP_PATH
+                fi
+                zle accept-line
+        }
+        if hash "tmux" > /dev/null 2>&1; then
+                function tmux_select_session(){
+                        sname=`tmux ls | fzf --reverse | sed 's/:.*//g'`
+                        if [[ $sname ]]; then
+                                tmux a -t $sname
+                        fi
+                }
+
+                function tmux_selectively_kill_session(){
+                        sname=`tmux ls | fzf --reverse | sed 's/:.*//g'`
+                        if [[ $sname ]]; then
+                                tmux kill-session -t $sname
+                        fi
+                }
+        fi
+
+        if hash "ghq" > /dev/null 2>&1; then 
+                function fzf::ghq-src () {
+                local selected_dir=$(ghq list -p | fzf)
+                if [ -n "$selected_dir" ]; then
+                        BUFFER="cd ${selected_dir}"
+                        zle accept-line
+                fi
+                zle clear-screen
+                }
+        fi
+fi

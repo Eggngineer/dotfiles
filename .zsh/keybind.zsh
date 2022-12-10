@@ -6,11 +6,11 @@ bindkey "^p" history-beginning-search-backward-end
 # ^n undo completions until where you wrote
 bindkey "^n" history-beginning-search-forward-end
 # ^j "rooting: original command (dist:<github>/Eggngineer/rooting or func.zsh)"
-bindkey "^j" zle-rooting
+bindkey "^j" rooting
 # ^f "cdd: original command (func.zsh)"
 bindkey "^f" fzf::cdr
 # ^] list&jamp the directories under control by "gh/ghq"
-bindkey '^]' peco-src
+bindkey '^]' fzf::ghq-src
 # ^k fuzzy-search apps and run it like Spotlight-Search (only applications: /Applications/*)
 bindkey '^k' fzf::spotlight
 # ignore real Spotlight search in systemPreference and remap CMD+space -> ^[k in terminal apps.

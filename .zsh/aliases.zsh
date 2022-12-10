@@ -4,6 +4,9 @@ if hash "fzf" >/dev/null 2>&1; then
     alias fpn='fzf::open'
     alias fpd='fzf::open-dir'
     alias his='history -E -i 1 | fzf'
+    if hash "pyenv" >/dev/null 2>&1; then
+        
+    fi
 fi
 
 # fd option
@@ -22,7 +25,7 @@ fi
 
 # tmux utilities
 if hash "tmux" >/dev/null 2>&1; then
-    alias fzf='fzf-tmux -p 60%'
+    alias fzf='fzf-tmux -p 80%'
     alias mkt='make_tmux_session'
     alias tls='tmux ls'
     alias sd='tmux detach'
