@@ -150,13 +150,6 @@ function open_here_by_VSCode() {
 
 ### tmux is necessary
 if hash "tmux" > /dev/null 2>&1; then
-        function tmux_main(){
-                tmux split-window -v
-                tmux split-window -h
-                tmux resize-pane -D 15
-                tmux select-pane -t 1
-        }
-
         function tmux_ide(){
                 tmux split-window -v
                 tmux resize-pane -U 10
@@ -167,11 +160,21 @@ if hash "tmux" > /dev/null 2>&1; then
                 tmux resize-pane -L 80
                 tmux clock
                 tmux select-pane -t 3
+                tmux rename-session main
+        }
+
+        function tmux_vml(){
+                tmux split-window -v
+                tmux split-window -h
+                tmux select-pane -t 0
+                tmux split-window -h
+                tmux rename-session vml
+                tmux select-pane -t 0
         }
 
         function make_tmux_session(){
                 echo -n "Session Name:"
-                read sname 
+                read sname
                 tmux new-session -s $sname
         }
 fi
@@ -290,7 +293,7 @@ if hash "fzf" > /dev/null 2>&1; then
                 function tmux_select_session(){
                         sname=`tmux ls | fzf --reverse | sed 's/:.*//g'`
                         if [[ $sname ]]; then
-                                tmux a -t $sname
+                                tmux a -d -t $sname
                         fi
                 }
 

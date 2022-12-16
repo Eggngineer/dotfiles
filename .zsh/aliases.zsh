@@ -29,9 +29,9 @@ if hash "tmux" >/dev/null 2>&1; then
     alias mkt='make_tmux_session'
     alias tls='tmux ls'
     alias sd='tmux detach'
-    alias main='tmux_main'
     alias ide='tmux_ide'
-    alias ss='tmux_select_session'
+    alias vml='tmux_vml'
+    alias ts='tmux_select_session'
     alias ks='tmux_selectively_kill_session'
 fi 
 
