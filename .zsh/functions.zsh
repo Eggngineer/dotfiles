@@ -216,7 +216,7 @@ if hash "fzf" > /dev/null 2>&1; then
         }
 
         function fzf::cdr() {
-                target_dir=`cdr -l | sed 's/^[^ ][^ ]*    *//'    | sed "s@~@$HOME@" |     fzf --preview 'tree {} --noreport -C    -L 1'`
+                target_dir=` cdr -l | awk '{ print $2 }' | sed "s@\~@$HOME@" | sed "s@//^*@@g" | fzf --preview 'tree {} --noreport -C -L 1'`
                 target_dir=`echo ${target_dir/\~/$HOME}`
                 if [ -n "$target_dir" ]; then
                         cd "$target_dir"
