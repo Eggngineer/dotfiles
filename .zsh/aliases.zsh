@@ -14,6 +14,11 @@ if hash "fd" >/dev/null 2>&1; then
     alias fd='fd --exact-depth 1'
 fi 
 
+# devbox command
+if hash "devbox" > /dev/null 2>&1; then
+    alias db='devbox'
+fi
+
 # list command
 if hash "lsd" >/dev/null 2>&1; then
     alias l="lsd -l"
