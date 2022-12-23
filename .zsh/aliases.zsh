@@ -5,7 +5,7 @@ if hash "fzf" >/dev/null 2>&1; then
     alias fpd='fzf::open-dir'
     alias his='history -E -i 1 | fzf'
     if hash "pyenv" >/dev/null 2>&1; then
-        
+        alias pl='pyenv local $(pyenv versions | fzf)'
     fi
 fi
 
