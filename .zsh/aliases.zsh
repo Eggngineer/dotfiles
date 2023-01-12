@@ -67,6 +67,7 @@ alias o.='open ./'
 alias to='tree -L 1'
 alias tt='tree -L 2'
 alias pwd='pwd -P'
+alias zrc='source $HOME/.zshrc'
 
 # author-unique
 alias egg='cd ~/files/devs/Git/github.com/Eggngineer'

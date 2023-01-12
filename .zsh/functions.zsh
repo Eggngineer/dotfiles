@@ -271,24 +271,15 @@ if hash "fzf" > /dev/null 2>&1; then
         }
 
         function fzf::spotlight() {
-                APP=$(ls /Applications | sed "s/\.app//g" | fzf -p 40%)
-                if [ $APP ]; then
-                        opt1=""
-                        opt1_target=""
-                        if [ "$APP" = "Utilities" ];then
-                                APP_PATH="/Applications/$APP"
-                        elif [ "$APP" = "SystemPreference" ];then
-                                # APP_PATH="-b com.apple.systempreferences /System/Library/PreferencePanes/Security.prefPane"
-                                opt1="-b"
-                                opt1_target=com.apple.systempreferences
-                                APP_PATH="/System/Library/PreferencePanes/Security.prefPane"
-                        else
-                                APP_PATH="/Applications/$APP.app"
-                        fi
-                        open $opt1 $opt1_target $APP_PATH
+                local OUTPUT=$(ls -1 -d /Applications/* /System/Applications/* /System/Applications/Utilities/* | sed 's/.app\//.app/g' | grep .app)
+                local APP=$(echo $OUTPUT | grep -v "/$" | sed 's/.*\///g' | sed 's/.app//g' | fzf)
+                if [ ! "$APP" = "" ]; then
+                        APP="$APP.app"
+                        open "$(echo $OUTPUT | grep $APP)"
                 fi
                 zle accept-line
         }
+
         if hash "tmux" > /dev/null 2>&1; then
                 function tmux_select_session(){
                         sname=`tmux ls | fzf --reverse | sed 's/:.*//g'`
@@ -316,3 +307,5 @@ if hash "fzf" > /dev/null 2>&1; then
                 }
         fi
 fi
+
+source $HOME/.zsh/zle.zsh
