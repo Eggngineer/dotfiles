@@ -5,4 +5,4 @@ ln -s $PWD/.zshenv $HOME/.zshenv
 ln -s $PWD/.zprofile $HOME/.zprofile
 ln -s $PWD/.tmux.conf $HOME/.tmux.conf
 
-source $HOME/.zshrc
+# source $HOME/.zshrc
