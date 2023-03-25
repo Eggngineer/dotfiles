@@ -32,11 +32,11 @@ function display_rooting(){
         max=$((${#tmp[@]}))
         str=""
         i=$(($1))
-        if [ $i -le $max ]; then 
-                for dir in ${tmp[@]}; 
+        if [ $i -le $max ]; then
+                for dir in ${tmp[@]};
                         do
                                 if [[ ${tmp[$(($i))]} == $dir ]]; then
-                                        ESC=$(printf '\033') 
+                                        ESC=$(printf '\033')
                                         dir="${ESC}[32m${dir}${ESC}[m"
                                 fi
                                 str+="/"
@@ -275,7 +275,7 @@ if hash "fzf" > /dev/null 2>&1; then
                 local APP=$(echo $OUTPUT | grep -v "/$" | sed 's/.*\///g' | sed 's/.app//g' | fzf)
                 if [ ! "$APP" = "" ]; then
                         APP="$APP.app"
-                        open "$(echo $OUTPUT | grep $APP)"
+                        open "$(echo $OUTPUT | grep '/'$APP)"
                 fi
                 zle accept-line
         }
@@ -296,7 +296,7 @@ if hash "fzf" > /dev/null 2>&1; then
                 }
         fi
 
-        if hash "ghq" > /dev/null 2>&1; then 
+        if hash "ghq" > /dev/null 2>&1; then
                 function fzf::ghq-src () {
                 local selected_dir=$(ghq list -p | fzf)
                 if [ -n "$selected_dir" ]; then
