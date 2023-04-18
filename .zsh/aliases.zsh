@@ -12,7 +12,7 @@ fi
 # fd option
 if hash "fd" >/dev/null 2>&1; then
     alias fd='fd --exact-depth 1'
-fi 
+fi
 
 # devbox command
 if hash "devbox" > /dev/null 2>&1; then
@@ -38,7 +38,7 @@ if hash "tmux" >/dev/null 2>&1; then
     alias vml='tmux_vml'
     alias ts='tmux_select_session'
     alias ks='tmux_selectively_kill_session'
-fi 
+fi
 
 # github utilities
 if hash "gh" >/dev/null 2>&1; then
@@ -53,7 +53,7 @@ if hash "code" >/dev/null 2>&1; then
     alias v.='code ./'
 fi
 
-# Macintosh utils 
+# Macintosh utils
 if [ $(uname -s) = "Darwin" ]; then
     alias psp='pmset sleepnow'
 fi
@@ -75,3 +75,4 @@ alias cls='cd /Users/eggngineer/FILEs/LABs/M1/Class/LastTerm'
 alias ssp="sshsp"
 alias tp='touch-python'
 alias tc='touch-cpp'
+alias gen='nkf --guess'

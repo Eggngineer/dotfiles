@@ -9,3 +9,6 @@ if hash "pyenv" > /dev/null 2>&1; then
     export PATH="$PATH:$PYENV_ROOT"
     export PIPENV_PYTHON="$PYENV_ROOT/python"
 fi
+
+#poetry
+export PATH="/Users/eggngineer/.local/bin:$PATH"

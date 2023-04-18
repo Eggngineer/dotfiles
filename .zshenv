@@ -1,6 +1,9 @@
 export PYENV_ROOT=$HOME/.pyenv
 export PATH=$PATH:$PYENV_ROOT/bin
 
+# set $LANG to en_US.UTF-8
+LANG='en_US.UTF-8'
+
 if hash "cargo" > /dev/null 2>&1; then
   export PATH="$HOME/.cargo/bin:$PATH"
   . "$HOME/.cargo/env"
