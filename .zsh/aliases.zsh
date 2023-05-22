@@ -3,6 +3,8 @@ if hash "fzf" >/dev/null 2>&1; then
     alias cdd='fzf::cdr'
     alias fpn='fzf::open'
     alias fpd='fzf::open-dir'
+    alias gip='fzf::get-ip-from-sshconfig'
+    alias uping='ping "$(gip)"'
     alias his='history -E -i 1 | fzf'
     if hash "pyenv" >/dev/null 2>&1; then
         alias pl='pyenv local $(pyenv versions | fzf)'
@@ -90,3 +92,5 @@ alias ssp="sshsp"
 alias tp='touch-python'
 alias tc='touch-cpp'
 alias gen='nkf --guess'
+alias latex='devcontainer open /Users/eggngineer/files/devs/LaTeX/latex-template-ja'
+

@@ -189,6 +189,13 @@ if hash "fzf" > /dev/null 2>&1; then
                 fi
         }
 
+        function fzf::get-ip-from-sshconfig() {
+                local host=$(grep -E "^Host " ~/.ssh/config | sed -e 's/Host[ ]*//g' | fzf --height 40% --border)
+                if [ -n "$host" ]; then
+                        echo `ssh -G $host | grep -E '\bhostname' | sed 's/hostname //g'`
+                fi
+
+        }
 
         function fzf::select-git-switch() {
         target_br=$(

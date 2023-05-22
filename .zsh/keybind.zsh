@@ -20,6 +20,6 @@ bindkey '^[s' sshsp
 # cmd+o --> openhere: open ./
 bindkey '^[o' open_here
 # ctr+v --> openhere: code ./
-bindkey '^v' open_here_by_VSCode# ctrl+e --> fzf::open_with_nvim
+bindkey '^v' open_here_by_VSCode
 # ctrl+e --> fzf::open_with_nvim
 bindkey '^e' fzf::open_with_nvim

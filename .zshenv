@@ -1,6 +1,8 @@
 export PYENV_ROOT=$HOME/.pyenv
 export PATH=$PATH:$PYENV_ROOT/bin
 
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+export PATH="/opt/homebrew/opt/unzip/bin:$PATH"
 # set $LANG to en_US.UTF-8
 LANG='en_US.UTF-8'
 
