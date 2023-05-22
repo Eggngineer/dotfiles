@@ -1,6 +1,6 @@
 bindkey -d
 # ^g show git branch
-bindkey "^g" fzf::select-git-switch 
+bindkey "^g" fzf::select-git-switch
 # ^p complete backward candidates
 bindkey "^p" history-beginning-search-backward-end
 # ^n undo completions until where you wrote
@@ -20,4 +20,6 @@ bindkey '^[s' sshsp
 # cmd+o --> openhere: open ./
 bindkey '^[o' open_here
 # ctr+v --> openhere: code ./
-bindkey '^v' open_here_by_VSCode
+bindkey '^v' open_here_by_VSCode# ctrl+e --> fzf::open_with_nvim
+# ctrl+e --> fzf::open_with_nvim
+bindkey '^e' fzf::open_with_nvim

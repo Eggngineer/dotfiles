@@ -189,6 +189,7 @@ if hash "fzf" > /dev/null 2>&1; then
                 fi
         }
 
+
         function fzf::select-git-switch() {
         target_br=$(
                 git branch -a |
@@ -294,6 +295,17 @@ if hash "fzf" > /dev/null 2>&1; then
                                 tmux kill-session -t $sname
                         fi
                 }
+                if hash "nvim" > /dev/null 2>&1; then
+                        function fzf::open_with_nvim(){
+                              target_dir=` cdr -l | awk '{ print $2 }' | sed "s@\~@$HOME@" | sed "s@//^*@@g" | fzf --preview 'tree {} --noreport -C -L 1'`
+                              target_dir=`echo ${target_dir/\~/$HOME}`
+                              if [ -n "$target_dir" ]; then
+                                      tmux popup -w80% -h80% -d "$(pwd)" -E "nvim $target_dir"
+                                      zle accept-line
+                              fi
+
+                        }
+                fi
         fi
 
         if hash "ghq" > /dev/null 2>&1; then

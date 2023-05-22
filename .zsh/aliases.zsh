@@ -57,6 +57,15 @@ fi
 if [ $(uname -s) = "Darwin" ]; then
     alias psp='pmset sleepnow'
 fi
+
+# NeoVim utils
+if hash "nvim" >/dev/null 2>&1; then
+  alias nv='nvim'
+  alias nv.='nvim .'
+  alias e='(){tmux popup -w80% -h80% -d "$(pwd)" -E "nvim $1"}'
+  alias e.='e .'
+fi
+
 # lazygit utils
 if hash "lazygit" >/dev/null 2>&1; then
     alias lg='(){tmux popup -w80% -h80% -d "$(pwd)" -E "lazygit"}'
