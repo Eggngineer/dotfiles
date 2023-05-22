@@ -57,6 +57,11 @@ fi
 if [ $(uname -s) = "Darwin" ]; then
     alias psp='pmset sleepnow'
 fi
+# lazygit utils
+if hash "lazygit" >/dev/null 2>&1; then
+    alias lg='(){tmux popup -w80% -h80% -d "$(pwd)" -E "lazygit"}'
+fi
+
 # some aliases
 alias mcd='mkcdir'
 alias grep='grep --color=auto'
