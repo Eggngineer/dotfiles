@@ -10,5 +10,4 @@ source $HOME/.zsh/functions.zsh
 source $HOME/.zsh/keybind.zsh
 
 my-compact-chpwd-recent-dirs
-cd $HOME
 
