@@ -73,6 +73,11 @@ if hash "lazygit" >/dev/null 2>&1; then
     alias lg='(){tmux popup -w80% -h80% -d "$(pwd)" -E "lazygit"}'
 fi
 
+# nkf --guess
+if hash "nkf" > /dev/null 2>&1; then
+    alias gen='nkf --guess'
+fi
+
 # some aliases
 alias mcd='mkcdir'
 alias grep='grep --color=auto'
@@ -80,17 +85,13 @@ alias ..='cd ../'
 alias ...='cd ../../'
 alias o='open'
 alias o.='open ./'
-alias to='tree -L 1'
 alias tt='tree -L 2'
 alias pwd='pwd -P'
 alias zrc='source $HOME/.zshrc'
 
 # author-unique
 alias egg='cd ~/files/devs/Git/github.com/Eggngineer'
-alias cls='cd /Users/eggngineer/FILEs/LABs/M1/Class/LastTerm'
-alias ssp="sshsp"
 alias tp='touch-python'
 alias tc='touch-cpp'
-alias gen='nkf --guess'
 alias latex='devcontainer open /Users/eggngineer/files/devs/LaTeX/latex-template-ja'
 
