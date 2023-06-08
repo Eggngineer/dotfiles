@@ -34,6 +34,5 @@
 
 結構ad-hocに作っていて，`/Applications/`,`/System/Applications/`,`/System/Applications/Utilities/`に入っている全てのアプリケーションを曖昧検索して起動できます．改善案やPRお待ちしてます．
 
-###　Misc
-
+### Misc
 あとは特に面白い実装はないですが，気分でちょいちょい機能追加していきます．
