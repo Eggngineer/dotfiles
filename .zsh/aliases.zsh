@@ -58,6 +58,8 @@ fi
 # Macintosh utils
 if [ $(uname -s) = "Darwin" ]; then
     alias psp='pmset sleepnow'
+		alias finder='open ~'
+		alias lf='finder'
 fi
 
 # NeoVim utils
