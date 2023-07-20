@@ -155,10 +155,12 @@ if hash "tmux" > /dev/null 2>&1; then
                 tmux resize-pane -U 10
                 tmux select-pane -t 0
                 tmux split-window -h
-                tmux split-window -h
+                # tmux split-window -h
                 tmux select-pane -t 0
-                tmux resize-pane -L 80
+                # tmux resize-pane -L 80
                 tmux clock
+                tmux select-pane -t 1
+                htop
                 tmux select-pane -t 3
                 tmux rename-session main
         }
