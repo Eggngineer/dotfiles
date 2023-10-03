@@ -3,6 +3,10 @@ export PATH=$PATH:$PYENV_ROOT/bin
 
 export PYENV_VIRTUAL_ENV_DISABLE_PROMPT=1
 
+if [ $(uname -s) == "Linux" ]; then
+	export DOCKER_HOST=unix:///run/user/`id -u`/docker.sock
+fi
+
 if hash "brew" > /dev/null 2>&1; then
 	export PATH="/opt/homebrew/opt/unzip/bin:$PATH"
 fi
