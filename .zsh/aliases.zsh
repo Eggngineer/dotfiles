@@ -32,7 +32,9 @@ fi
 
 # tmux utilities
 if hash "tmux" >/dev/null 2>&1; then
-    alias fzf='fzf-tmux -p 80%'
+    if hash "fzf-tmux" > /dev/null 2>&1; then
+        alias fzf='fzf-tmux -p 80%'
+    fi
     alias mkt='make_tmux_session'
     alias tls='tmux ls'
     alias ds='tmux detach'
