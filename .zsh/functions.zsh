@@ -234,14 +234,14 @@ if hash "fzf" > /dev/null 2>&1; then
         }
 
         function fzf::open() {
-                target_file=`fzf -p 60% --preview 'head -100 {}' --border`
+                target_file=`fzf  --preview 'head -100 {}' --border`
                 if [ -n "$target_file" ]; then
                         open $target_file
                 fi
         }
 
         function fzf::open-dir() {
-                target_dir=`fd | fzf --height 40% --preview 'tree {} --noreport -C    -L 1'`
+                target_dir=`fd | fzf --preview 'tree {} --noreport -C    -L 1'`
                 if [ -n "$target_dir" ]; then
                         open $target_dir
                 fi
