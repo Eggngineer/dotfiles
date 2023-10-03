@@ -4,6 +4,7 @@ export PATH=$PATH:$PYENV_ROOT/bin
 export PYENV_VIRTUAL_ENV_DISABLE_PROMPT=1
 
 if [ $(uname -s) == "Linux" ]; then
+	export PATH="/usr/bin:$PATH"
 	export DOCKER_HOST=unix:///run/user/`id -u`/docker.sock
 fi
 
