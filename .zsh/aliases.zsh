@@ -33,7 +33,7 @@ fi
 # tmux utilities
 if hash "tmux" >/dev/null 2>&1; then
     tmux_version=$(tmux -V | sed -e 's/[^0-9]//g')
-    if [[ $tmux_version > 32 ]]; then
+    if [[ "$tmux_version" > "32" ]]; then
         alias fzf='fzf-tmux -p 80%'
     fi
     alias mkt='make_tmux_session'
