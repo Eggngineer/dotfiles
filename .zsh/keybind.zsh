@@ -23,3 +23,5 @@ bindkey '^[o' open_here
 bindkey '^v' open_here_by_VSCode
 # ctrl+e --> fzf::open_with_nvim
 bindkey '^e' fzf::open_with_nvim
+# ctrl+b --> fzf::bluetoothctl
+bindkey '^b' fzf::bluetoothctl

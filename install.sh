@@ -20,12 +20,14 @@ backup $HOME/.zsh
 backup $HOME/.zshenv
 backup $HOME/.zprofile
 backup $HOME/.tmux.conf
+backup $HOME/.userscripts
 
 ln -s $SCRIPT_DIR/.zshrc $HOME/.zshrc
 ln -s $SCRIPT_DIR/.zsh $HOME/.zsh
 ln -s $SCRIPT_DIR/.zshenv $HOME/.zshenv
 ln -s $SCRIPT_DIR/.zprofile $HOME/.zprofile
 ln -s $SCRIPT_DIR/.tmux.conf $HOME/.tmux.conf
+ln -s $SCRIPT_DIR/.userscripts $HOME/.userscripts
 
 
 # Install Applications
@@ -47,3 +49,6 @@ if [ "$(uname -s)" == "Darwin" ]; then
     elif !(type "nvim" > /dev/null 2>&1); then
         brew install neovim
     else
+        echo
+    fi
+fi

@@ -289,6 +289,14 @@ if hash "fzf" > /dev/null 2>&1; then
                 zle accept-line
         }
 
+        if hash "blueutil" > /dev/null 2>&1; then
+                function fzf::bluetoothctl(){
+                        $HOME/.userscripts/bluetooth_cli.sh
+                        zle accept-line
+                }
+        fi
+
+
         if hash "tmux" > /dev/null 2>&1; then
                 function tmux_select_session(){
                         sname=`tmux ls | fzf --reverse | sed 's/:.*//g'`

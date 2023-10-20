@@ -6,6 +6,7 @@ zle -N fzf::cdr
 zle -N fzf::ghq-src
 zle -N fzf::spotlight
 zle -N fzf::open_with_nvim
+zle -N fzf::bluetoothctl
 zle -N sshsp
 zle -N open_here
 zle -N open_here_by_VSCode
