@@ -28,8 +28,3 @@ if hash "pyenv" >/dev/null 2>&1; then
   eval "$(pyenv init --path)"
   eval "$(pyenv virtualenv-init -)"
 fi
-
-if [ "$LS_COLORS" -a -f /etc/DIR_COLORS ]; then
-  eval $(dircolors /etc/DIR_COLORS)
-fi
-

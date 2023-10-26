@@ -21,6 +21,7 @@ backup $HOME/.zshenv
 backup $HOME/.zprofile
 backup $HOME/.tmux.conf
 backup $HOME/.userscripts
+backup $HOME/.config/starship.toml
 
 ln -s $SCRIPT_DIR/.zshrc $HOME/.zshrc
 ln -s $SCRIPT_DIR/.zsh $HOME/.zsh
@@ -28,7 +29,7 @@ ln -s $SCRIPT_DIR/.zshenv $HOME/.zshenv
 ln -s $SCRIPT_DIR/.zprofile $HOME/.zprofile
 ln -s $SCRIPT_DIR/.tmux.conf $HOME/.tmux.conf
 ln -s $SCRIPT_DIR/.userscripts $HOME/.userscripts
-
+ln -s $SCRIPT_DIR/.config/starship.toml $HOME/.config/starship.toml
 
 # Install Applications
 if !(type "brew" > /dev/null 2>&1); then
