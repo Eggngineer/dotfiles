@@ -199,29 +199,29 @@ if hash "fzf" > /dev/null 2>&1; then
         }
 
         function fzf::select-git-switch() {
-        target_br=$(
-                git branch -a |
-                fzf --layout=reverse --info=hidden --prompt="CHECKOUT BRANCH > " --preview="echo {} | tr -d ' *' | xargs git lg --color=always" |
-                head -n 1 |
-                perl -pe "s/\s//g; s/\*//g; s/remotes\/origin\///g"
-        )
-        if [ -n "$target_br" ]; then
-                BUFFER="git switch $target_br"
-                zle accept-line
-        fi
+                target_br=$(
+                        git branch -a |
+                        fzf --layout=reverse --info=hidden --prompt="CHECKOUT BRANCH > " --preview="echo {} | tr -d ' *' | xargs git lg --color=always" |
+                        head -n 1 |
+                        perl -pe "s/\s//g; s/\*//g; s/remotes\/origin\///g"
+                )
+                if [ -n "$target_br" ]; then
+                        BUFFER="git switch $target_br"
+                        zle accept-line
+                fi
         }
 
         function fzf::select-git-switch() {
-        target_br=$(
-                git branch -a |
-                fzf --layout=reverse --info=hidden --prompt="CHECKOUT BRANCH > " --preview="echo {} | tr -d ' *' | xargs git lg --color=always" |
-                head -n 1 |
-                perl -pe "s/\s//g; s/\*//g; s/remotes\/origin\///g"
-        )
-        if [ -n "$target_br" ]; then
-                BUFFER="git switch $target_br"
-                zle accept-line
-        fi
+                target_br=$(
+                        git branch -a |
+                        fzf --layout=reverse --info=hidden --prompt="CHECKOUT BRANCH > " --preview="echo {} | tr -d ' *' | xargs git lg --color=always" |
+                        head -n 1 |
+                        perl -pe "s/\s//g; s/\*//g; s/remotes\/origin\///g"
+                )
+                if [ -n "$target_br" ]; then
+                        BUFFER="git switch $target_br"
+                        zle accept-line
+                fi
         }
 
         function fzf::cdr() {
@@ -298,14 +298,18 @@ if hash "fzf" > /dev/null 2>&1; then
 
 
         if hash "tmux" > /dev/null 2>&1; then
-                function tmux_select_session(){
+                function tmux_selective_attach_session(){
                         sname=`tmux ls | fzf --reverse | sed 's/:.*//g'`
                         if [[ $sname ]]; then
-                                tmux a -d -t $sname
+                                if [[ $TMUX ]]; then
+                                        tmux switch -t $sname
+                                else
+                                        tmux a -d -t $sname
+                                fi
                         fi
                 }
 
-                function tmux_selectively_kill_session(){
+                function tmux_selective_kill_session(){
                         sname=`tmux ls | fzf --reverse | sed 's/:.*//g'`
                         if [[ $sname ]]; then
                                 tmux kill-session -t $sname

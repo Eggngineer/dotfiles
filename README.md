@@ -29,10 +29,20 @@
 └── zplug_plugin.zsh
 </pre>
 ## Topics
-### SpotLight
-`C-Space`にMacOSのSpotlight検索のような体験の機能をバインドしています．
+### AppSpotLight (functions/fzf::spotlight)
+MacOSのSpotlightのような検索機能です．筆者は`C-Space`にkeybindを振っています．
 
-結構ad-hocに作っていて，`/Applications/`,`/System/Applications/`,`/System/Applications/Utilities/`に入っている全てのアプリケーションを曖昧検索して起動できます．改善案やPRお待ちしてます．
+自分用に作ったのでかなりアドホックです．`/Applications/`,`/System/Applications/`,`/System/Applications/Utilities/`に入っている全てのアプリケーションを対象に曖昧検索を行い，選択されたアプリケーションを起動するように実装しています．
+
+### BluetoothController (functions/fzf::bluetoothctl)
+Bluetooth機器の接続/解除をコマンドラインで管理する機能です．筆者は`Ctrl-b`にkeybindを振っています．
 
 ### Misc
-あとは特に面白い実装はないですが，気分でちょいちょい機能追加していきます．
+tmux関連の実装として，以下のような機能を追加しています．
+* funcsions/make_tmux_session
+  * セッションを命名しながら立ち上げる
+* functions/tmux_selective_attach_session
+  * tmuxセッションを選択的にアタッチする
+  * セッション内でも使用できますが，`Prefix-a (default)`のスイッチングの方が使い勝手がいいと思います．
+* functions/tmux_selective_kill_session
+  * tmuxセッションを選択的に削除する
