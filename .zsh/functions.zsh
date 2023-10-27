@@ -340,4 +340,19 @@ if hash "fzf" > /dev/null 2>&1; then
         fi
 fi
 
+
+if hash "tmux" >/dev/null 2>&1; then
+        tmux_version=$(tmux -V | sed -e 's/[^0-9]//g')
+        if [[ "$tmux_version" > "32" ]]; then
+                if hash "dust" > /dev/null 2>&1; then
+                        function dust-popup(){
+                                tmux popup -w80% -h80% \
+                                -d '#{pane_current_path}' \
+                                -T 'disk usage' \
+                                -E 'dust -d 1 && read -n 1'
+                        }
+                fi
+        fi
+fi
+
 source $HOME/.zsh/zle.zsh
